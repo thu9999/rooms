@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import NavBar from './components/nav-bar/nav-bar';
 import store from './store/store';
 import { Provider } from 'react-redux';
@@ -40,12 +40,7 @@ const routes = [
         path: '/not-found',
         exact: true,
         component: WaitingComponent(NotFound)
-    },
-    {
-        path: '*',
-        exact: true,
-        component: WaitingComponent(NotFound)
-    }         
+    }        
 ];
 
 function RouteWithSubRoutes(route) {
@@ -74,6 +69,7 @@ const App = () => {
                         {routes.map((route, i) => ( 
                             <RouteWithSubRoutes key={i} {...route}/>
                         ))}
+                        <Redirect from="*" to="/home"/>
                     </Switch>
                 </div>
             </div>
